@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Consultation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 2rem auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+        h2 {
+            color: #4CAF50;
+            text-align: center;
+        }
+        .specialist-list, .doctor-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+        .specialist, .doctor {
+            background: #e8f5e9;
+            border: 1px solid #c8e6c9;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            width: 200px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .specialist img, .doctor img {
+            width: 100%;
+            height: 120px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        .specialist:hover, .doctor:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .doctor-details {
+            text-align: left;
+            margin-top: 1rem;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .seminars {
+            margin-top: 3rem;
+        }
+        .seminars-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .seminar {
+            background: #fffde7;
+            border: 1px solid #ffe082;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Book Live Consultation</h1>
+    </header>
+    <div class="container">
+        <h2>Select a Specialist</h2>
+        <div class="specialist-list">
+           <div class="specialist" onclick="window.location.href='orthopedic.html'">
+    <img src="ortho.jpg" alt="Orthopedic">
+    <div>Orthopedic</div>
+</div>
+
+            <div class="specialist" onclick="showDoctors('Neuro')">
+                <img src="neuro.jpg" alt="Neurologist">
+                <div>Neurologist</div>
+            </div>
+            <div class="specialist" onclick="showDoctors('Cardio')">
+                <img src="cardio.jpg" alt="Cardiologist">
+                <div>Cardiologist</div>
+            </div>
+            <div class="specialist" onclick="showDoctors('Dermatology')">
+                <img src="derma.jpg" alt="Dermatologist">
+                <div>Dermatologist</div>
+            </div>
+            <div class="specialist" onclick="showDoctors('ENT')">
+                <img src="ent.jpg" alt="ENT Specialist">
+                <div>ENT Specialist</div>
+            </div>
+        </div>
+
+        <h2 id="doctor-heading" style="display: none;">Available Doctors</h2>
+        <div class="doctor-list" id="doctor-list"></div>
+
+        <div class="seminars">
+            <h2>Live Seminars</h2>
+            <div class="seminars-list">
+                <div class="seminar">
+                    <h3>Understanding Joint Health</h3>
+                    <p>Dr. Smith will discuss the importance of joint care. <strong>Time:</strong> 5:00 PM, Dec 12.</p>
+                </div>
+                <div class="seminar">
+                    <h3>Brain Health and Lifestyle</h3>
+                    <p>Dr. Taylor shares tips for maintaining neurological health. <strong>Time:</strong> 3:00 PM, Dec 14.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const doctors = {
+            Ortho: [
+                { name: "Dr. Smith", details: "MBBS, MS - Orthopedics, 10+ years experience", image: "https://via.placeholder.com/200x120?text=Dr.+Smith" },
+                { name: "Dr. Miller", details: "Fellowship in Joint Replacement, 8+ years experience", image: "https://via.placeholder.com/200x120?text=Dr.+Miller" }
+            ],
+            Neuro: [
+                { name: "Dr. Taylor", details: "DM - Neurology, 12+ years experience", image: "https://via.placeholder.com/200x120?text=Dr.+Taylor" },
+                { name: "Dr. Clark", details: "MD - General Medicine, 9+ years experience", image: "https://via.placeholder.com/200x120?text=Dr.+Clark" }
+            ],
+            Cardio: [
+                { name: "Dr. Brown", details: "DM - Cardiology, 15+ years experience", image: "https://via.placeholder.com/200x120?text=Dr.+Brown" },
+                { name: "Dr. Davis", details: "Interventional Cardiologist, 11+ years experience", image: "https://via.placeholder.com/200x120?text=Dr.+Davis" }
+            ],
+            Dermatology: [
+                { name: "Dr. Wilson", details: "MD - Dermatology, 8+ years experience", image: "https://via.placeholder.com/200x120?text=Dr.+Wilson" },
+                { name: "Dr. Martinez", details: "Cosmetologist, 6+ years experience", image: "https://via.placeholder.com/200x120?text=Dr.+Martinez" }
+            ],
+            ENT: [
+                { name: "Dr. Thomas", details: "MS - ENT, 14+ years experience", image: "https://via.placeholder.com/200x120?text=Dr.+Thomas" },
+                { name: "Dr. Anderson", details: "Specialist in Sinus and Allergy, 10+ years experience", image: "https://via.placeholder.com/200x120?text=Dr.+Anderson" }
+            ]
+        };
+
+        function showDoctors(speciality) {
+            const doctorList = document.getElementById("doctor-list");
+            const doctorHeading = document.getElementById("doctor-heading");
+            doctorList.innerHTML = ""; // Clear the current list
+            doctors[speciality].forEach(doctor => {
+                const doctorDiv = document.createElement("div");
+                doctorDiv.classList.add("doctor");
+                doctorDiv.innerHTML = `
+                    <img src="${doctor.image}" alt="${doctor.name}">
+                    <strong>${doctor.name}</strong>
+                    <div class="doctor-details">${doctor.details}</div>
+                    <button onclick="bookAppointment('${doctor.name}')">Book Appointment</button>
+                `;
+                doctorList.appendChild(doctorDiv);
+            });
+            doctorHeading.style.display = "block";
+        }
+
+        function bookAppointment(doctorName) {
+            alert(`Appointment booked with ${doctorName}!`);
+        }
+    </script>
+</body>
+</html>

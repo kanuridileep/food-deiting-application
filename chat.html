@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Analysis</title>
+        <style>
+        .navbar {
+            background-color: #4CAF50;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        .company-name {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .navbar-buttons {
+            display: flex;
+            align-items: center;
+        }
+        .navbar-buttons a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding-top: 60px; /* Adjust padding to prevent content from hiding behind navbar */
+        }
+        .container {
+            display: flex;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 800px;
+            margin-top: 20px;
+        }
+        .inputs {
+            flex: 1;
+            padding: 20px;
+        }
+        .inputs h1 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .input-group {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        .input-group label {
+            width: 180px;
+            text-align: right;
+            margin-right: 20px;
+            color: #555;
+        }
+        .input-group input[type="date"],
+        .input-group input[type="number"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100px;
+            font-size: 14px;
+        }
+        .input-group button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            align-self: flex-end;
+        }
+        .graph {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        canvas {
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .description {
+            margin-top: 20px;
+            text-align: left;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="navbar">
+        <div class="company-name">Nutras<span style="color: #f8f8f8;"></span></div>
+        <div class="navbar-buttons">
+            <a href="display_profile.php">Dashboard</a>
+            <a href="diets.html">Diets</a>
+            <a href="wishlist.html">Wishlist</a>
+            <a href="cart.html">Cart</a>
+            <a href="index.html">Logout</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="inputs">
+            <h1>Health Analysis</h1>
+            <div class="input-group">
+                <label for="date">Date:</label>
+                <input type="date" id="date">
+            </div>
+            <div class="input-group">
+                <label for="calories">Calories Intake (kcal):</label>
+                <input type="number" id="calories">
+                <button onclick="suggestCalories()">Suggest</button>
+            </div>
+            <div class="input-group">
+                <label for="exercise">Exercise Duration (minutes):</label>
+                <input type="number" id="exercise">
+            </div>
+            <div class="input-group">
+                <label for="weight">Weight (kg):</label>
+                <input type="number" id="weight">
+            </div>
+            <div class="input-group">
+                <label for="sleep">Sleep Quality (hours):</label>
+                <input type="number" id="sleep">
+            </div>
+            <button onclick="updateChart()">Update Chart</button>
+            <div id="healthDescription" class="description"></div>
+        </div>
+        <div class="graph">
+            <canvas id="healthChart" width="400" height="300"></canvas>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            updateChart(); // Initialize chart on page load
+        });
+
+        function updateChart() {
+            const date = document.getElementById('date').value;
+            const calories = parseFloat(document.getElementById('calories').value);
+            const exercise = parseFloat(document.getElementById('exercise').value);
+            const weight = parseFloat(document.getElementById('weight').value);
+            const sleep = parseFloat(document.getElementById('sleep').value);
+
+            // Simulate saving data to server with PHP and MySQL
+            saveHealthData(date, calories, exercise, weight, sleep);
+
+            // Update chart visualization (simulated)
+            const ctx = document.getElementById('healthChart').getContext('2d');
+            if (window.myChart instanceof Chart) {
+                window.myChart.destroy(); // Destroy old chart if exists
+            }
+            window.myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Calories Intake', 'Exercise Duration', 'Weight', 'Sleep Quality'],
+                    datasets: [{
+                        label: 'Health Data',
+                        data: [calories, exercise, weight, sleep],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Display health summary
+            const healthSummary = document.getElementById('healthDescription');
+            const dayDescription = getDayDescription(calories, exercise, weight, sleep);
+            healthSummary.innerHTML = `
+                <h2>Health Summary for ${date}</h2>
+                <p>Calories Intake: ${calories.toFixed(2)} kcal</p>
+                <p>Exercise Duration: ${exercise.toFixed(2)} minutes</p>
+                <p>Weight: ${weight.toFixed(2)} kg</p>
+                <p>Sleep Quality: ${sleep.toFixed(2)} hours</p>
+                <p>${dayDescription}</p>
+            `;
+        }
+
+        function saveHealthData(date, calories, exercise, weight, sleep) {
+            // Simulate sending data to PHP script (backend)
+            const formData = new FormData();
+            formData.append('date', date);
+            formData.append('calories', calories);
+            formData.append('exercise', exercise);
+            formData.append('weight', weight);
+            formData.append('sleep', sleep);
+
+            fetch('save_health_data.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                console.log('Health data saved:', data);
+            })
+            .catch(error => {
+                console.error('Error saving health data:', error);
+            });
+        }
+
+        function getDayDescription(calories, exercise, weight, sleep) {
+            let description = "Today's health is ";
+
+            // Example criteria (you can customize based on your requirements)
+            if (calories > 2500) {
+                description += "high calorie intake. ";
+            } else {
+                description += "moderate calorie intake. ";
+            }
+
+            if (exercise >= 30) {
+                description += "You did a good amount of exercise. ";
+            } else {
+                description += "Consider increasing your exercise duration. ";
+            }
+
+            const bmi = calculateBMI(weight);
+            if (bmi < 18.5) {
+                description += "Your BMI suggests you may be underweight. ";
+            } else if (bmi >= 18.5 && bmi < 25) {
+                description += "Your BMI is within the healthy range. ";
+            } else {
+                description += "Your BMI suggests you may be overweight. ";
+            }
+
+            if (sleep < 6) {
+                description += "You had less sleep than recommended. ";
+            } else if (sleep >= 7 && sleep <= 9) {
+                description += "You had a good amount of sleep. ";
+            } else {
+                description += "You had more sleep than recommended. ";
+            }
+
+            return description;
+        }
+
+        function calculateBMI(weight) {
+            // Example BMI calculation (weight in kg, height in meters squared)
+            const height = 1.75; // Example height in meters
+            return weight / (height * height);
+        }
+
+        function suggestCalories() {
+            // Example suggestion based on common scenarios
+            const suggestedCalories = 2000; // Example suggested calorie intake
+            document.getElementById('calories').value = suggestedCalories;
+        }
+    </script>
+</body>
+</html>

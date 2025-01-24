@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diet Selection</title>
+    <style>
+        .navbar {
+            background-color: #4CAF50;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+        }
+        .company-name {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .navbar-buttons {
+            display: flex;
+            align-items: center;
+        }
+        .navbar-buttons a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+        }
+
+        body {
+            background: url('c.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 2em auto;
+    max-width: 1200px;
+    max-height: 600px; /* Adjust the max-height as per your preference */
+    overflow: hidden; /* Ensures content doesn't overflow */
+}
+
+.box {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 50px;
+    margin: 1em;
+    width: calc(20% - 2em); /* Adjust box width as needed */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.box img {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.box h3 {
+    padding: 1em;
+    margin: 0;
+    background-color: #4CAF50;
+    color: white;
+}
+
+.box p {
+    padding: 1em;
+    margin: 0;
+}
+
+.box a {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="company-name">Nutras<span style="color: #f8f8f8;"></span></div>
+        <div class="navbar-buttons">
+            <a href="display_profile.php">Dashboard</a>
+            <a href="chat.html">health Tracker</a>
+            <a href="#help">Help</a>
+            <a href="aboutus.html">About Us</a>
+            <a href="index.html">Logout</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="box">
+            <a href="alldiets.html">
+                <img src="1.jpg" alt="Select Your Diet">
+                <h3>Select Your Diet</h3>
+                <p>Choose a diet that suits your preferences and lifestyle.</p>
+            </a>
+        </div>
+        <div class="box">
+            <a href="#">
+                <img src="2.jpg" alt="Budget Diet">
+                <h3>Budget Diet</h3>
+                <p>Find affordable diet plans that won't break the bank.</p>
+            </a>
+        </div>
+        <div class="box">
+            <a href="#">
+                <img src="3.jpg" alt="Diet According to Disease">
+                <h3>Diet According to Disease</h3>
+                <p>Customized diets for specific health conditions.</p>
+            </a>
+        </div>
+        <div class="box">
+            <a href="#">
+                <img src="4.jpg" alt="Customized Diet">
+                <h3>Customized Diet</h3>
+                <p>Create a diet plan tailored to your individual needs.</p>
+            </a>
+        </div>
+        <div class="box">
+            <a href="#">
+                <img src="5.jpg" alt="Diet Prescribed by Doctor">
+                <h3>Diet Prescribed by Doctor</h3>
+                <p>Follow a diet plan recommended by healthcare professionals.</p>
+            </a>
+        </div>
+        <div class="box">
+            <a href="#">
+                <img src="6.jpg" alt="Healthy cheat meals">
+                <h3>Healthy Cheat Meals</h3>
+                <p>Indulge in a delicious treat without compromising your health goals.</p>
+            </a>
+        </div>
+    </div>
+    
+    <script>
+        let slideIndex = 1; // Start with the first slide
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let i;
+            const slides = document.querySelectorAll('.showpiece');
+            const dots = document.querySelectorAll('.dot');
+            
+            if (n > slides.length) {
+                slideIndex = 1; // Reset to the first slide if at the end
+            }    
+            if (n < 1) {
+                slideIndex = slides.length; // Go to the last slide if at the beginning
+            }
+            
+            // Hide all slides
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            
+            // Remove active class from all dots
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            
+            // Display the current slide
+            slides[slideIndex - 1].style.display = "block";
+            // Add active class to the current dot
+            dots[slideIndex - 1].className += " active";
+        }
+        
+        // Show the first slide initially
+        showSlides(slideIndex);
+    </script>
+</body>
+</html>

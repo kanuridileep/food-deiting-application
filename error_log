@@ -1,0 +1,20 @@
+[22-Jun-2024 10:54:05 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/eyhectip/public_html/login.php on line 69
+[22-Jun-2024 10:54:09 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/eyhectip/public_html/login.php on line 69
+[22-Jun-2024 10:54:16 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/eyhectip/public_html/login.php on line 69
+[22-Jun-2024 10:54:31 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/eyhectip/public_html/login.php on line 69
+[22-Jun-2024 10:55:49 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'eyhectip_nutras.selected_diets' doesn't exist in /home/eyhectip/public_html/display_profile.php:30
+Stack trace:
+#0 /home/eyhectip/public_html/display_profile.php(30): PDOStatement->execute()
+#1 {main}
+  thrown in /home/eyhectip/public_html/display_profile.php on line 30
+[22-Jun-2024 10:55:53 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'eyhectip_nutras.selected_diets' doesn't exist in /home/eyhectip/public_html/display_profile.php:30
+Stack trace:
+#0 /home/eyhectip/public_html/display_profile.php(30): PDOStatement->execute()
+#1 {main}
+  thrown in /home/eyhectip/public_html/display_profile.php on line 30
+[29-Jun-2024 14:39:54 UTC] PHP Warning:  Undefined array key "login_email" in /home/eyhectip/public_html/edit_profile.php on line 19
+[29-Jun-2024 14:39:54 UTC] PHP Stack trace:
+[29-Jun-2024 14:39:54 UTC] PHP   1. {main}() /home/eyhectip/public_html/edit_profile.php:0
+[29-Jun-2024 14:39:54 UTC] PHP Warning:  Undefined array key "login_password" in /home/eyhectip/public_html/edit_profile.php on line 20
+[29-Jun-2024 14:39:54 UTC] PHP Stack trace:
+[29-Jun-2024 14:39:54 UTC] PHP   1. {main}() /home/eyhectip/public_html/edit_profile.php:0

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutri Care - Diet Plans</title>
+    <style>
+        /* Reset and global styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding-top: 60px; /* Space for fixed navbar */
+        }
+
+        /* Navbar styles */
+        .navbar {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .company-name {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .navbar-buttons a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .navbar-buttons a:hover {
+            color: #ddd;
+        }
+
+/* Search bar styles */
+.search-bar {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #4CAF50;
+    border-radius: 10px;
+    margin-left: 20px;
+    transition: border-color 0.3s;
+    width: 500px;
+    height: 40px;
+    outline: none; /* Remove default outline */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.search-bar:focus {
+    border-color: #45a049;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+    background-color: #fff; /* Slightly darker background */
+}
+
+/* Add placeholder styles for better visibility */
+.search-bar::placeholder {
+    color: #999;
+    opacity: 0.9; /* Optional: make it slightly transparent */
+}
+
+
+        /* Sort and filter container styles */
+        .sort-filter-container {
+            background-color: #fff;
+            padding: 3px 3px;
+            margin-top: 0px; /* Adjust to match navbar height */
+            display: flex;
+            justify-content:left;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .sort-filter-container label {
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .sort-filter-container select {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .sort-filter-container select:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        /* Diet card styles */
+        .diet-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .diet-card {
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            color: #333;
+            padding: 20px;
+            width: calc(30% - 40px);
+            height: 250px; /* Adjust height as necessary */
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .diet-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-content {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .diet-title {
+            color: white;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-top: 0;
+        }
+
+        .diet-description {
+            display: none;
+            color: #fff;
+            transition: opacity 0.3s;
+        }
+
+        .diet-card:hover .diet-description {
+            display: block;
+        }
+
+        .submit-button {
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .submit-button:hover {
+            background-color: #45a049;
+        }
+
+        @media (max-width: 1200px) {
+            .diet-card {
+                width: calc(45% - 40px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .diet-card {
+                width: calc(100% - 40px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="company-name">Nutras</div>
+        <div class="navbar-buttons">
+            <a href="display_profile.php">Dashboard</a>
+            <a href="#services">Diet Plans</a>
+            <a href="#help">Help</a>
+            <a href="#about-us">About Us</a>
+            <a href="index.html">Logout</a>
+        </div>
+       
+    </div>
+
+    <div class="sort-filter-container">
+        <label for="filter">Filter by:</label>
+        <select id="filter" onchange="filterDiets()">
+            <option value="all">All Diets</option>
+            <option value="vegetarian">Vegetarian</option>
+            <option value="vegan">Vegan</option>
+            <!-- Add more filter options as needed -->
+        </select>
+		 <input type="text" id="search" class="search-bar" placeholder="Search diets..." oninput="searchDiets()">
+    </div>
+
+    <div class="diet-container">
+        <a href="ketorecipies.html" class="diet-card" style="background-image: url('keto.jpg');">
+            <div class="card-content">
+                <form method="post" action="store_diet.php">
+                    <input type="hidden" name="diet" value="Ketogenic (Keto) Diet">
+                    <p class="diet-title">Ketogenic (Keto) Diet</p>
+                    <p class="diet-description">High-fat, low-carbohydrate diet. Aims to induce ketosis, where the body burns fat for energy instead of carbohydrates. Includes meats, fatty fish, eggs, dairy, oils, and low-carb vegetables.</p>
+                    <button type="submit">Select</button>
+                </form>
+            </div>
+        </a>
+
+        <a href="medrecipies.html" class="diet-card" style="background-image: url('med.jpg');">
+            <div class="card-content">
+                <form method="post" action="store_diet.php">
+                    <input type="hidden" name="diet" value="Mediterranean Diet">
+                    <p class="diet-title">Mediterranean Diet</p>
+                    <p class="diet-description">Emphasizes fruits, vegetables, whole grains, nuts, and legumes. Includes moderate consumption of fish and poultry. Olive oil is the primary fat source. Reduces red meat and sweets intake.</p>
+                    <button type="submit">Select</button>
+                </form>
+            </div>
+        </a>
+
+
+        <!-- Add more diet cards similarly -->
+    </div>
+<h1>dileep</h1>
+    <script>
+        function filterDiets() {
+            var filter = document.getElementById("filter").value;
+            var dietCards = document.querySelectorAll(".diet-card");
+
+            dietCards.forEach(function(card) {
+                if (filter === "all") {
+                    card.style.display = "block";
+                } else {
+                    var dietTitle = card.querySelector(".diet-title").textContent.toLowerCase();
+                    if (dietTitle.includes(filter)) {
+                        card.style.display = "block";
+                    } else {
+                        card.style.display = "none";
+                    }
+                }
+            });
+        }
+
+
+    function searchDiets() {
+        var searchInput = document.getElementById("search").value.toLowerCase();
+        var dietCards = document.querySelectorAll(".diet-card");
+
+        dietCards.forEach(function(card) {
+            var dietTitle = card.querySelector(".diet-title").textContent.toLowerCase();
+            if (dietTitle.includes(searchInput)) {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
+        });
+
+        // Check for backspace
+        if (searchInput === '') {
+            window.location.href = 'alldiets.html'; // Navigate back to main page
+        }
+    }
+</script>
+
+    </script>
+</body>
+</html>
